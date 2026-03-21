@@ -1,0 +1,253 @@
+.profile-detail-page {
+  animation: fadeIn 0.5s ease-in;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.profile-page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(8, 247, 254, 0.1);
+  width: 100%;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent-blue);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: rgba(8, 247, 254, 0.1);
+  transform: translateX(-3px);
+}
+
+.profile-page-header h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  flex: 1;
+}
+
+.profile-badge {
+  background: rgba(114, 9, 183, 0.2);
+  border: 1px solid var(--accent-purple);
+  color: var(--accent-purple);
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+/* TWO COLUMN LAYOUT */
+.profile-page-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  align-items: start;
+}
+
+.profile-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* SHARED CARD STYLE */
+.pd-card {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(15, 20, 41, 0.6));
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.pd-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(8, 247, 254, 0.08);
+}
+
+.pd-card-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pd-card-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* PREDICTION CARD */
+.period-prediction-card {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(15, 20, 41, 0.6));
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.prediction-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+
+.prediction-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.period-prediction-card.urgent { border-color: rgba(255, 0, 110, 0.4); background: linear-gradient(135deg, rgba(255, 0, 110, 0.08), rgba(15, 20, 41, 0.6)); }
+.period-prediction-card.urgent .prediction-value { color: #ff006e; }
+.period-prediction-card.soon { border-color: rgba(255, 165, 0, 0.4); background: linear-gradient(135deg, rgba(255, 165, 0, 0.08), rgba(15, 20, 41, 0.6)); }
+.period-prediction-card.soon .prediction-value { color: #ffa500; }
+.period-prediction-card.due { border-color: rgba(255, 0, 110, 0.5); background: linear-gradient(135deg, rgba(255, 0, 110, 0.12), rgba(15, 20, 41, 0.6)); }
+.period-prediction-card.due .prediction-value { color: #ff006e; }
+.period-prediction-card.overdue { border-color: rgba(255, 165, 0, 0.4); background: linear-gradient(135deg, rgba(255, 165, 0, 0.08), rgba(15, 20, 41, 0.6)); }
+.period-prediction-card.overdue .prediction-value { color: #ffa500; }
+
+/* INFO GRID */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.info-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.info-item .label { color: var(--text-secondary); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.info-item .value { color: var(--text-primary); font-size: 0.9rem; font-weight: 700; }
+
+/* EDIT FORM */
+.edit-form { display: flex; flex-direction: column; gap: 0.5rem; }
+.edit-form .form-group { display: flex; flex-direction: column; gap: 0.2rem; }
+.edit-form .form-group label { font-weight: 600; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.edit-form .form-group input { padding: 0.4rem 0.6rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(8, 247, 254, 0.2); border-radius: 6px; color: var(--text-primary); font-family: 'Poppins', sans-serif; font-size: 0.8rem; }
+.edit-form .form-group input:focus { outline: none; border-color: var(--accent-blue); background: rgba(8, 247, 254, 0.05); }
+.form-actions { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
+.form-actions .btn { flex: 1; justify-content: center; padding: 0.4rem; font-size: 0.75rem; }
+
+/* PERIOD HISTORY */
+.period-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.period-entry {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 0, 110, 0.15);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.period-entry:hover { border-color: rgba(255, 0, 110, 0.35); background: rgba(255, 255, 255, 0.05); }
+.period-dates { display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.8rem; flex-wrap: wrap; }
+.start-date { color: var(--text-primary); }
+.separator { color: var(--accent-blue); }
+.end-date { color: var(--text-primary); }
+.period-notes p { color: var(--text-secondary); font-size: 0.72rem; font-style: italic; margin-top: 2px; }
+.period-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+
+.edit-btn {
+  background: transparent;
+  border: 1px solid rgba(8, 247, 254, 0.3);
+  color: var(--accent-blue);
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+.edit-btn:hover { background: rgba(8, 247, 254, 0.1); }
+
+.delete-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 0, 110, 0.3);
+  color: #ff006e;
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.72rem;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+.delete-btn:hover { background: rgba(255, 0, 110, 0.1); }
+
+.intensity-badge { padding: 0.15rem 0.45rem; border-radius: 999px; font-size: 0.68rem; font-weight: 600; }
+.intensity-badge.light { background: rgba(255, 182, 193, 0.2); border: 1px solid #ffb6c1; color: #ffb6c1; }
+.intensity-badge.medium { background: rgba(255, 105, 180, 0.2); border: 1px solid #ff69b4; color: #ff69b4; }
+.intensity-badge.heavy { background: rgba(220, 20, 60, 0.2); border: 1px solid #dc143c; color: #dc143c; }
+
+/* SYMPTOM LOGS */
+.symptom-list { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.symptom-entry {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(114, 9, 183, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.symptom-entry:hover { border-color: rgba(114, 9, 183, 0.4); }
+.symptom-date { color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.symptom-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: flex-end; }
+.symptom-tag { background: rgba(114, 9, 183, 0.2); border: 1px solid var(--accent-purple); color: var(--accent-purple); padding: 0.15rem 0.4rem; border-radius: 999px; font-size: 0.68rem; font-weight: 500; white-space: nowrap; }
+
+.empty { color: var(--text-secondary); font-style: italic; text-align: center; padding: 1.25rem; font-size: 0.85rem; }
+.loading { color: var(--text-secondary); text-align: center; padding: 1.25rem; font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .profile-page-content { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .profile-page-header { flex-wrap: wrap; }
+  .profile-page-header h1 { font-size: 1.1rem; }
+  .period-entry { flex-direction: column; align-items: flex-start; }
+  .symptom-entry { flex-direction: column; align-items: flex-start; }
+  .symptom-tags { justify-content: flex-start; }
+}

@@ -1,0 +1,681 @@
+.dashboard {
+  animation: fadeIn 0.5s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(8, 247, 254, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.dashboard-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, var(--text-primary), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  align-items: start;
+}
+
+/* PROFILES SECTION */
+.profiles-section {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(15, 20, 41, 0.6));
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  height: fit-content;
+  max-width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.section-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.profiles-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-overview-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-overview-card:hover {
+  border-color: var(--accent-blue);
+  background: rgba(8, 247, 254, 0.08);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(8, 247, 254, 0.15);
+}
+
+.profile-overview-card.active {
+  border-color: var(--accent-red);
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.15), rgba(8, 247, 254, 0.08));
+  box-shadow: 0 4px 16px rgba(255, 0, 110, 0.15);
+}
+
+.overview-name {
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.overview-status {
+  color: var(--accent-purple);
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.overview-meta {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* CALENDAR SECTION */
+.calendar-section {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(15, 20, 41, 0.6));
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 12px;
+  padding: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(8, 247, 254, 0.1);
+}
+
+.calendar-header h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.calendar-nav {
+  background: rgba(8, 247, 254, 0.1);
+  border: 1px solid rgba(8, 247, 254, 0.2);
+  color: var(--accent-blue);
+  cursor: pointer;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav:hover {
+  background: rgba(8, 247, 254, 0.2);
+  transform: scale(1.1);
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.4rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.6rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(8, 247, 254, 0.1);
+  color: var(--text-secondary);
+}
+
+.calendar-day:not(.empty):hover {
+  transform: scale(1.08);
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+  background: rgba(8, 247, 254, 0.08);
+}
+
+.calendar-day.empty {
+  background: transparent;
+  cursor: default;
+  border: none;
+}
+
+.calendar-day.today {
+  background: rgba(8, 247, 254, 0.2);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(8, 247, 254, 0.2);
+}
+
+.calendar-day.period-day {
+  color: white;
+  font-weight: 700;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(8, 247, 254, 0.1);
+  font-size: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 6px;
+}
+
+.legend-color.menstruating {
+  background: var(--accent-red);
+}
+
+/* INSIGHTS SECTION */
+.insights-section {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.insights-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.insight-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(8, 247, 254, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(8, 247, 254, 0.4);
+  box-shadow: 0 8px 32px rgba(8, 247, 254, 0.1);
+}
+
+/* Urgent insights - for imminent/overdue periods */
+.insight-card.urgent {
+  border-color: var(--accent-pink);
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.08), rgba(255, 0, 110, 0.02));
+  box-shadow: 0 4px 16px rgba(255, 0, 110, 0.15);
+}
+
+.insight-card.urgent:hover {
+  border-color: rgba(255, 0, 110, 0.6);
+  box-shadow: 0 8px 32px rgba(255, 0, 110, 0.2);
+}
+
+/* Warning insights - for overdue periods */
+.insight-card.warning {
+  border-color: #ffa500;
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.08), rgba(255, 165, 0, 0.02));
+}
+
+.insight-card.warning:hover {
+  border-color: rgba(255, 165, 0, 0.6);
+  box-shadow: 0 8px 32px rgba(255, 165, 0, 0.15);
+}
+
+.insight-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.insight-card.urgent .insight-title {
+  color: var(--accent-pink);
+}
+
+.insight-card.warning .insight-title {
+  color: #ffa500;
+}
+
+.insight-content {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* PENDING PERIODS */
+.pending-periods-section {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.pending-periods-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.pending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pending-item {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.1), rgba(255, 200, 0, 0.05));
+  border: 1px solid rgba(255, 165, 0, 0.2);
+  border-radius: 12px;
+  padding: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.1);
+  gap: 0.75rem;
+}
+
+.pending-item:hover {
+  border-color: rgba(255, 165, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(255, 165, 0, 0.15);
+}
+
+.pending-info {
+  flex: 1;
+}
+
+.pending-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.pending-date {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin-bottom: 0.15rem;
+}
+
+.pending-status {
+  color: #ffa500;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.empty-state {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 900px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== PROFILE RING CARDS ===== */
+.profile-ring-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg, #1a1f3a);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  flex: 1;
+  min-width: 200px;
+}
+
+.profile-ring-card:hover {
+  border-color: rgba(8, 247, 254, 0.3);
+  transform: translateY(-2px);
+}
+
+.profile-ring-card.active {
+  border-color: rgba(8, 247, 254, 0.5);
+  background: rgba(8, 247, 254, 0.05);
+}
+
+.ring-wrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.ring-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ring-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ring-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ring-day {
+  font-size: 12px;
+  color: var(--text-secondary, #a8b5d1);
+  margin-bottom: 6px;
+}
+
+.ring-pill {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.ring-pill.pill-safe {
+  background: rgba(6, 214, 160, 0.15);
+  color: #06d6a0;
+}
+
+.ring-pill.pill-warn {
+  background: rgba(255, 165, 0, 0.15);
+  color: #ffa500;
+}
+
+.ring-pill.pill-danger {
+  background: rgba(255, 0, 110, 0.15);
+  color: #ff006e;
+}
+
+.ring-pill.pill-neutral {
+  background: rgba(168, 181, 209, 0.1);
+  color: var(--text-secondary, #a8b5d1);
+}
+
+/* ===== INSIGHT PILLS ===== */
+.insight-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.75rem;
+}
+
+.insight-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.insight-pill:hover {
+  transform: translateY(-1px);
+}
+
+.insight-pill--danger {
+  background: rgba(255, 0, 110, 0.12);
+  border-color: rgba(255, 0, 110, 0.3);
+  color: #ff006e;
+}
+
+.insight-pill--warn {
+  background: rgba(255, 165, 0, 0.12);
+  border-color: rgba(255, 165, 0, 0.3);
+  color: #ffa500;
+}
+
+.insight-pill--info {
+  background: rgba(8, 247, 254, 0.08);
+  border-color: rgba(8, 247, 254, 0.25);
+  color: #08f7fe;
+}
+
+.insight-pill--neutral {
+  background: rgba(168, 181, 209, 0.08);
+  border-color: rgba(168, 181, 209, 0.2);
+  color: var(--text-secondary, #a8b5d1);
+}
+
+/* ===== PHASE TIMELINES ===== */
+.phase-section {
+  margin-top: 2rem;
+}
+
+.phase-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-primary, #fff);
+}
+
+.phase-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.phase-timeline {
+  background: var(--card-bg, #1a1f3a);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+}
+
+.phase-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.phase-timeline-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+}
+
+.phase-timeline-phase {
+  font-size: 12px;
+  color: var(--text-secondary, #a8b5d1);
+}
+
+.phase-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: visible;
+  margin-bottom: 8px;
+}
+
+.phase-segment {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  border-radius: 0;
+}
+
+.phase-segment:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.phase-segment:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
+
+.phase-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--dark-bg, #0a0e27);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  z-index: 2;
+}
+
+.phase-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary, #a8b5d1);
+  opacity: 0.7;
+}
+/* ===== HOUSEHOLD MOOD RING ===== */
+.mood-ring-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.mood-ring-emoji {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.mood-ring-info {
+  flex: 1;
+}
+
+.mood-ring-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary, #a8b5d1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.mood-ring-phase {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  margin-bottom: 2px;
+}
+
+.mood-ring-vibe {
+  font-size: 12px;
+  color: var(--text-secondary, #a8b5d1);
+  font-style: italic;
+}
+
+/* ===== PHASE SECTION INSIDE PROFILES CARD ===== */
+.phase-section-inner {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.phase-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary, #a8b5d1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6rem;
+}

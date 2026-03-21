@@ -1,0 +1,227 @@
+.cycle-logger {
+  width: 100%;
+}
+
+.logger-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(8, 247, 254, 0.1);
+}
+
+.logger-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.logger-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(8, 247, 254, 0.05);
+}
+
+.form-group textarea {
+  resize: vertical;
+  max-height: 80px;
+  min-height: 60px;
+}
+
+/* Radio buttons for period/symptom selection */
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.radio-option input[type="radio"] {
+  cursor: pointer;
+}
+
+.radio-option span {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.radio-option input[type="radio"]:checked + span {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+/* Form row for side-by-side fields */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Flow Intensity Buttons */
+.intensity-options {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.intensity-btn {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(8, 247, 254, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.intensity-btn:hover {
+  border-color: var(--accent-blue);
+  background: rgba(8, 247, 254, 0.1);
+  color: var(--accent-blue);
+  transform: translateY(-2px);
+}
+
+.intensity-btn.selected {
+  border-color: var(--accent-red);
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(8, 247, 254, 0.1));
+  color: var(--text-primary);
+  box-shadow: 0 0 12px rgba(255, 0, 110, 0.2);
+}
+
+/* Symptom Buttons */
+.symptoms-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.symptom-btn {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(8, 247, 254, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.symptom-btn:hover {
+  border-color: var(--accent-blue);
+  background: rgba(8, 247, 254, 0.08);
+  color: var(--accent-blue);
+  transform: translateY(-2px);
+}
+
+.symptom-btn.selected {
+  border-color: var(--accent-purple);
+  background: linear-gradient(135deg, rgba(114, 9, 183, 0.2), rgba(8, 247, 254, 0.08));
+  color: var(--text-primary);
+  box-shadow: 0 0 8px rgba(114, 9, 183, 0.2);
+}
+
+.symptom-btn.custom.selected {
+  border-color: var(--accent-red);
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.15), rgba(8, 247, 254, 0.08));
+  box-shadow: 0 0 8px rgba(255, 0, 110, 0.2);
+}
+
+.symptom-btn svg {
+  font-size: 0.75rem;
+}
+
+.custom-tag {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+/* Period Duration Badge */
+.period-duration {
+  display: flex;
+  justify-content: center;
+}
+
+.duration-badge {
+  background: linear-gradient(135deg, rgba(8, 247, 254, 0.15), rgba(114, 9, 183, 0.1));
+  border: 1px solid rgba(8, 247, 254, 0.2);
+  color: var(--accent-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Form Error Message */
+.form-error {
+  background: rgba(255, 0, 110, 0.15);
+  border: 1px solid rgba(255, 0, 110, 0.3);
+  color: #ff6b9d;
+  padding: 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.logger-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}

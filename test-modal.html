@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; background: #0a0e27; height: 200vh; }
+    
+    .test-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .test-modal {
+      background: #1a1f3a;
+      border: 2px solid #00f5d4;
+      padding: 2rem;
+      border-radius: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="color:white;">Content behind modal</h1>
+  
+  <div class="test-overlay">
+    <div class="test-modal">
+      <h2>This should be centered</h2>
+      <p>If this works, copy these exact styles to Logger.css</p>
+    </div>
+  </div>
+</body>
+</html>

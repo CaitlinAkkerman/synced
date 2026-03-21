@@ -1,0 +1,224 @@
+/* PHASE-BASED THEME SYSTEM */
+
+/* MENSTRUAL PHASE - Cozy, Restful, Dark */
+.phase-menstrual {
+  --phase-bg: linear-gradient(135deg, #1a0f1f 0%, #0d0a1a 50%, #1a0f1f 100%);
+  --phase-primary: #ff4d6d;
+  --phase-secondary: #7209b7;
+  --phase-accent: #ff006e;
+  --phase-glow: rgba(255, 0, 110, 0.3);
+  --phase-card: rgba(255, 0, 110, 0.08);
+  --phase-text: #ffdde1;
+  --phase-emoji: "🌙";
+}
+
+/* FOLLICULAR PHASE - Energetic, Fresh, Growing */
+.phase-follicular {
+  --phase-bg: linear-gradient(135deg, #0a1a0f 0%, #0a1a1f 50%, #1a2a1f 100%);
+  --phase-primary: #06d6a0;
+  --phase-secondary: #08f7fe;
+  --phase-accent: #00ff88;
+  --phase-glow: rgba(6, 214, 160, 0.3);
+  --phase-card: rgba(6, 214, 160, 0.08);
+  --phase-text: #e0fff0;
+  --phase-emoji: "🌱";
+}
+
+/* OVULATORY PHASE - Peak Energy, Bright, Sparkly */
+.phase-ovulatory {
+  --phase-bg: linear-gradient(135deg, #1a1a0f 0%, #2a1a0a 50%, #1f1a0a 100%);
+  --phase-primary: #ffd60a;
+  --phase-secondary: #ff9e00;
+  --phase-accent: #ffbe0b;
+  --phase-glow: rgba(255, 214, 10, 0.3);
+  --phase-card: rgba(255, 214, 10, 0.08);
+  --phase-text: #fff8e0;
+  --phase-emoji: "✨";
+}
+
+/* LUTEAL PHASE - Cozy, Warm, Introspective */
+.phase-luteal {
+  --phase-bg: linear-gradient(135deg, #1f0f1a 0%, #1a0f14 50%, #1f1410 100%);
+  --phase-primary: #fb5607;
+  --phase-secondary: #ff006e;
+  --phase-accent: #ff8500;
+  --phase-glow: rgba(251, 86, 7, 0.3);
+  --phase-card: rgba(251, 86, 7, 0.08);
+  --phase-text: #ffe8d6;
+  --phase-emoji: "🍂";
+}
+
+/* BASE STYLES THAT ADAPT TO PHASE */
+body.phase-menstrual,
+body.phase-follicular,
+body.phase-ovulatory,
+body.phase-luteal {
+  background: var(--phase-bg);
+  color: var(--phase-text);
+  transition: all 0.8s ease-in-out;
+}
+
+/* PHASE INDICATOR BADGE */
+.phase-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--phase-card);
+  border: 1px solid var(--phase-primary);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--phase-primary);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.phase-indicator::before {
+  content: var(--phase-emoji);
+  font-size: 1.2rem;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px var(--phase-glow);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 20px var(--phase-glow), 0 0 40px var(--phase-glow);
+    transform: scale(1.02);
+  }
+}
+
+/* WEATHER EFFECTS OVERLAY */
+.weather-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+/* Menstrual - Gentle rain/droplets */
+.weather-menstrual {
+  background: 
+    radial-gradient(circle at 20% 80%, var(--phase-primary) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--phase-secondary) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, var(--phase-accent) 0%, transparent 30%);
+  animation: drift 20s ease-in-out infinite;
+}
+
+/* Follicular - Growing vines/lines */
+.weather-follicular {
+  background: 
+    linear-gradient(45deg, transparent 48%, var(--phase-primary) 49%, transparent 50%),
+    linear-gradient(-45deg, transparent 48%, var(--phase-secondary) 49%, transparent 50%);
+  background-size: 100px 100px;
+  animation: grow 15s linear infinite;
+}
+
+/* Ovulatory - Sparkles/stars */
+.weather-ovulatory {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--phase-primary), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--phase-secondary), transparent),
+    radial-gradient(2px 2px at 50px 160px, var(--phase-accent), transparent),
+    radial-gradient(2px 2px at 90px 40px, var(--phase-primary), transparent),
+    radial-gradient(2px 2px at 130px 80px, var(--phase-secondary), transparent);
+  background-size: 200px 200px;
+  animation: sparkle 3s linear infinite;
+}
+
+/* Luteal - Warm floating embers */
+.weather-luteal {
+  background: 
+    radial-gradient(circle at 30% 60%, var(--phase-primary) 0%, transparent 40%),
+    radial-gradient(circle at 70% 30%, var(--phase-secondary) 0%, transparent 40%);
+  animation: float-warm 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -10px); }
+}
+
+@keyframes grow {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes float-warm {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.1); }
+}
+
+/* PHASE-SPECIFIC CARD STYLES */
+.phase-menstrual .dashboard,
+.phase-follicular .dashboard,
+.phase-ovulatory .dashboard,
+.phase-luteal .dashboard {
+  background: transparent;
+}
+
+/* NAVBAR PHASE STYLES */
+.phase-menstrual .navbar,
+.phase-follicular .navbar,
+.phase-ovulatory .navbar,
+.phase-luteal .navbar {
+  background: rgba(10, 14, 39, 0.85);
+  border-color: var(--phase-primary);
+}
+
+/* BUTTONS ADAPT TO PHASE */
+.phase-menstrual .btn-primary,
+.phase-follicular .btn-primary,
+.phase-ovulatory .btn-primary,
+.phase-luteal .btn-primary {
+  background: linear-gradient(90deg, var(--phase-primary), var(--phase-secondary));
+  box-shadow: 0 4px 12px var(--phase-glow);
+}
+
+/* INSIGHT CARDS PHASE STYLES */
+.phase-menstrual .insight-card,
+.phase-follicular .insight-card,
+.phase-ovulatory .insight-card,
+.phase-luteal .insight-card {
+  border-color: var(--phase-primary);
+  background: var(--phase-card);
+}
+
+/* CALENDAR DAY PHASE STYLES */
+.phase-menstrual .calendar-day.today,
+.phase-follicular .calendar-day.today,
+.phase-ovulatory .calendar-day.today,
+.phase-luteal .calendar-day.today {
+  border-color: var(--phase-primary);
+  background: var(--phase-glow);
+  color: var(--phase-text);
+}
+
+/* PHASE TRANSITION MESSAGE */
+.phase-message {
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--phase-card);
+  border: 1px solid var(--phase-primary);
+  border-radius: 12px;
+  font-style: italic;
+  animation: fadeIn 0.5s ease;
+}
+
+.phase-message::before {
+  content: var(--phase-emoji);
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
