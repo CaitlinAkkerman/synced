@@ -11,7 +11,8 @@ import { useCyclePhase, useHouseholdPhases } from './hooks/useCyclePhase';
 import './styles/PhaseThemes.css';
 import Toast from './components/Toast';
 import MouseGlow from './components/MouseGlow';
- 
+import Onboarding from './components/Onboarding';
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentHousehold, setCurrentHousehold] = useState(null);
@@ -19,18 +20,19 @@ function App() {
   const [profiles, setProfiles] = useState([]);
   const [editingLog, setEditingLog] = useState(null);
   const [selectedProfileDetail, setSelectedProfileDetail] = useState(null);
- 
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
   // Detect cycle phase for theme
   const phases = useHouseholdPhases(profiles);
   const activePhases = Object.values(phases);
   const dominantPhase = activePhases.length > 0 
     ? activePhases.sort((a,b) => activePhases.filter(v => v===a).length - activePhases.filter(v => v===b).length).pop()
     : 'menstrual';
- 
+
   useEffect(() => {
     document.body.className = `phase-${dominantPhase}`;
   }, [dominantPhase]);
- 
+
   useEffect(() => {
     const saved = localStorage.getItem('currentUser');
     if (saved) {
@@ -38,7 +40,7 @@ function App() {
       loadHousehold();
     }
   }, []);
- 
+
   const loadHousehold = async () => {
     try {
       const response = await apiCall('/api/household', {
@@ -46,18 +48,22 @@ function App() {
       });
       const data = await response.json();
       setCurrentHousehold(data);
-      setProfiles(data.profiles || []);
+      const loadedProfiles = data.profiles || [];
+      setProfiles(loadedProfiles);
+      if (loadedProfiles.length === 0) {
+        setShowOnboarding(true);
+      }
     } catch (error) {
       console.error('Failed to load household:', error);
     }
   };
- 
+
   const handleLogin = (user) => {
     setCurrentUser(user);
     localStorage.setItem('currentUser', JSON.stringify(user));
     loadHousehold();
   };
- 
+
   const handleLogout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
@@ -65,15 +71,23 @@ function App() {
     setCurrentHousehold(null);
     setProfiles([]);
   };
- 
+
   if (!currentUser) {
     return <LoginScreen onLogin={handleLogin} />;
   }
- 
+
   return (
     <div className="app-container">
       <MouseGlow />
       <Toast />
+      {showOnboarding && (
+        <Onboarding
+          onComplete={() => {
+            setShowOnboarding(false);
+            loadHousehold();
+          }}
+        />
+      )}
       <div className={`weather-overlay weather-${dominantPhase}`} />
       <nav className="navbar">
         <div className="nav-left">
@@ -111,7 +125,7 @@ function App() {
           </div>
         </div>
       </nav>
- 
+
       <main className="main-content">
         {activeView === 'dashboard' && (
           <Dashboard 
@@ -168,5 +182,5 @@ function App() {
     </div>
   );
 }
- 
+
 export default App;
