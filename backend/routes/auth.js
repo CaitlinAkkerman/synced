@@ -2,8 +2,17 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
+import nodemailer from 'nodemailer';
 
 const router = express.Router();
+
+const getTransporter = () => nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  }
+});
 
 router.post('/register', (req, res) => {
   const { email, password, name } = req.body;
@@ -127,6 +136,93 @@ router.delete('/account', (req, res) => {
         return res.status(500).json({ message: 'Failed to delete account' });
       }
       res.json({ message: 'Account deleted' });
+    });
+  });
+});
+
+router.post('/forgot-password', (req, res) => {
+  const { email } = req.body;
+  const db = req.db;
+
+  if (!email) return res.status(400).json({ message: 'Email is required' });
+
+  db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
+    if (err || !user) {
+      // Don't reveal if email exists — just say it's sent
+      return res.json({ message: 'If that email exists, a reset link is on its way.' });
+    }
+
+    const resetToken = uuidv4();
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60).toISOString(); // 1 hour
+
+    db.run(
+      'INSERT INTO password_resets (token, userId, expiresAt) VALUES (?, ?, ?)',
+      [resetToken, user.id, expiresAt],
+      async (err) => {
+        if (err) return res.status(500).json({ message: 'Failed to generate reset token' });
+
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+        const resetLink = `${frontendUrl}?reset_token=${resetToken}`;
+
+        try {
+          const transporter = getTransporter();
+          await transporter.sendMail({
+            from: `"Synced" <${process.env.GMAIL_USER}>`,
+            to: email,
+            subject: 'Reset your Synced password',
+            html: `
+              <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 2rem;">
+                <h2 style="color: #ff006e;">Reset your password</h2>
+                <p>Someone (hopefully you) requested a password reset for your Synced account.</p>
+                <p style="margin: 1.5rem 0;">
+                  <a href="${resetLink}" style="background: linear-gradient(90deg, #ff006e, #ff1493); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                    Reset Password
+                  </a>
+                </p>
+                <p style="color: #888; font-size: 0.85rem;">This link expires in 1 hour. If you didn't request this, ignore this email and carry on.</p>
+              </div>
+            `
+          });
+        } catch (emailErr) {
+          console.error('Email send failed:', emailErr);
+          // Still return success so we don't reveal email existence
+        }
+
+        res.json({ message: 'If that email exists, a reset link is on its way.' });
+      }
+    );
+  });
+});
+
+router.post('/reset-password', (req, res) => {
+  const { token, newPassword } = req.body;
+  const db = req.db;
+
+  if (!token || !newPassword) {
+    return res.status(400).json({ message: 'Token and new password are required' });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({ message: 'Password must be at least 6 characters' });
+  }
+
+  db.get('SELECT * FROM password_resets WHERE token = ?', [token], (err, reset) => {
+    if (err || !reset) {
+      return res.status(400).json({ message: 'Invalid or expired reset link' });
+    }
+
+    if (new Date(reset.expiresAt) < new Date()) {
+      db.run('DELETE FROM password_resets WHERE token = ?', [token]);
+      return res.status(400).json({ message: 'Reset link has expired. Please request a new one.' });
+    }
+
+    const hashedPassword = bcryptjs.hashSync(newPassword, 10);
+
+    db.run('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, reset.userId], (err) => {
+      if (err) return res.status(500).json({ message: 'Failed to update password' });
+
+      db.run('DELETE FROM password_resets WHERE userId = ?', [reset.userId]);
+      res.json({ message: 'Password updated successfully!' });
     });
   });
 });

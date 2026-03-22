@@ -120,6 +120,15 @@ function initializeDatabase() {
   });
 }
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS password_resets (
+    token TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    expiresAt DATETIME NOT NULL,
+    FOREIGN KEY(userId) REFERENCES users(id)
+  )
+`);
+
 function createDemoAccount() {
   const demoUserId = 'demo-user-123';
   const householdId = 'demo-household-123';

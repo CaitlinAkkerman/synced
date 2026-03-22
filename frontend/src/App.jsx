@@ -105,7 +105,9 @@ function App() {
   };
 
   if (!currentUser) {
-    return <LoginScreen onLogin={handleLogin} />;
+    const params = new URLSearchParams(window.location.search);
+    const resetToken = params.get('reset_token');
+    return <LoginScreen onLogin={handleLogin} resetToken={resetToken} />;
   }
 
   return (

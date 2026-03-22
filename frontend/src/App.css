@@ -455,3 +455,43 @@ body {
   cursor: not-allowed;
   transform: none;
 }
+
+/* PASSWORD RESET */
+.auth-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary, #a8b5d1);
+  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  padding: 0 0 0.75rem 0;
+  transition: color 0.2s ease;
+}
+.auth-back-btn:hover { color: var(--accent-blue, #08f7fe); }
+
+.auth-reset-header {
+  margin-bottom: 1.25rem;
+}
+.auth-reset-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.auth-reset-header p {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #a8b5d1);
+}
+
+.success-message {
+  background: rgba(6, 214, 160, 0.12);
+  border: 1px solid rgba(6, 214, 160, 0.3);
+  color: #06d6a0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
