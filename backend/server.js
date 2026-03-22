@@ -18,7 +18,9 @@ app.use(cors({
   origin: [
     'https://cyclepsychos.vercel.app',
     'http://localhost:3000'
-  ]
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use((req, res, next) => {

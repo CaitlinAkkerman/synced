@@ -76,4 +76,59 @@ router.post('/demo', (req, res) => {
   });
 });
 
+router.delete('/account', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'No token provided' });
+
+  let userId;
+  try {
+    const decoded = jwt.verify(token, req.JWT_SECRET);
+    userId = decoded.userId;
+  } catch {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+
+  // Block demo account deletion
+  if (userId === 'demo-user-123') {
+    return res.status(403).json({ message: "Can't delete the demo account, nice try 😄" });
+  }
+
+  const db = req.db;
+
+  db.serialize(() => {
+    // Delete in order: symptoms → logs → profiles → household → user
+    db.run(`
+      DELETE FROM log_symptoms WHERE logId IN (
+        SELECT l.id FROM logs l
+        JOIN profiles p ON l.profileId = p.id
+        JOIN households h ON p.householdId = h.id
+        WHERE h.userId = ?
+      )
+    `, [userId]);
+
+    db.run(`
+      DELETE FROM logs WHERE profileId IN (
+        SELECT p.id FROM profiles p
+        JOIN households h ON p.householdId = h.id
+        WHERE h.userId = ?
+      )
+    `, [userId]);
+
+    db.run(`
+      DELETE FROM profiles WHERE householdId IN (
+        SELECT id FROM households WHERE userId = ?
+      )
+    `, [userId]);
+
+    db.run('DELETE FROM households WHERE userId = ?', [userId]);
+
+    db.run('DELETE FROM users WHERE id = ?', [userId], function(err) {
+      if (err) {
+        return res.status(500).json({ message: 'Failed to delete account' });
+      }
+      res.json({ message: 'Account deleted' });
+    });
+  });
+});
+
 export default router;

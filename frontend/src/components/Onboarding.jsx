@@ -296,12 +296,12 @@ function StepDone({ onFinish, profile }) {
   );
 }
 
-function Onboarding({ onComplete }) {
+function Onboarding({ onComplete, onSkip }) {
   const [step, setStep] = useState(0);
   const [createdProfile, setCreatedProfile] = useState(null);
 
   const next = () => setStep(s => s + 1);
-  const skip = () => onComplete();
+  const skip = () => onSkip ? onSkip() : onComplete();
 
   return (
     <div className="ob-overlay">
