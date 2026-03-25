@@ -237,6 +237,45 @@ function App() {
           />
         )}
       </main>
+
+      {/* BOTTOM TAB BAR — mobile only */}
+      <nav className="bottom-tab-bar">
+        <button
+          className={`tab-btn ${activeView === 'dashboard' ? 'active' : ''}`}
+          onClick={() => { setActiveView('dashboard'); setEditingLog(null); }}
+        >
+          <Calendar size={20} />
+          <span className="tab-btn-label">Dashboard</span>
+        </button>
+        <button
+          className={`tab-btn ${activeView === 'log' ? 'active' : ''}`}
+          onClick={() => { setEditingLog(null); setActiveView('log'); }}
+        >
+          <Plus size={20} />
+          <span className="tab-btn-label">Log</span>
+        </button>
+        <button
+          className={`tab-btn ${activeView === 'profiles' ? 'active' : ''}`}
+          onClick={() => setActiveView('profiles')}
+        >
+          <Settings size={20} />
+          <span className="tab-btn-label">Profiles</span>
+        </button>
+        <button
+          className="tab-btn"
+          onClick={handleLogout}
+        >
+          <LogOut size={20} />
+          <span className="tab-btn-label">Logout</span>
+        </button>
+        <button
+          className="tab-btn tab-btn-danger"
+          onClick={() => setShowDeleteConfirm(true)}
+        >
+          <span style={{ fontSize: '18px' }}>🗑</span>
+          <span className="tab-btn-label">Delete</span>
+        </button>
+      </nav>
     </div>
   );
 }

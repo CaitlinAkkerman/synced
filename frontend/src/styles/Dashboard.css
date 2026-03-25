@@ -384,8 +384,17 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+  }
+
   .dashboard-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .dashboard-header p {
+    font-size: 0.8rem;
   }
 
   .insights-grid {
@@ -394,6 +403,38 @@
 
   .dashboard-container {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .phase-list {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-pills {
+    gap: 6px;
+  }
+
+  .insight-pill {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .profile-ring-card {
+    padding: 0.75rem 1rem;
+  }
+
+  .calendar-section {
+    width: 100%;
+  }
+
+  .calendar-legend {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .pending-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
